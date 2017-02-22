@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Go Fish</title>
+  <script src="card.js"></script>
+  <script src="player.js"></script>
+  <script src="start.js"></script>
+</head>
+<body>
+
+<script>
+var deck = new Deck();
+var players = createPlayers(2);
+var currentPlayer = 1;
+
+function displayGameState() {
+  displayCurrentPlayer();
+  displayPlayers();
+  displayDeck();
+}
+
+window.onload = function() {
+  startGame(); // Comment out if you want to debug pre-game state
+  displayGameState();
+};
+
+// Here lies debugging functions
+function pocDraw() {
+  console.log(deck.draw());
+}
+</script>
+
+<button onclick="startGame()">Start the Game!</button>
+<hr />
+<div id="currentPlayer"></div>
+<hr />
+<div id="players"></div>
+<!-- No hr needed, provided by last player -->
+<div id="deck"></div>
+
+</body>
+</html>
