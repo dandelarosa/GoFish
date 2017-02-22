@@ -17,10 +17,30 @@ function Player(number) {
   return {
     cards: [],
     giveCard: giveCard,
+    giveCards: giveCards,
+    grabCardsWithRank: grabCardsWithRank,
     number: number,
   }
   function giveCard(aCard) {
     this.cards.push(aCard);
+  }
+  function giveCards(manyCards) {
+    var cards = this.cards;
+    manyCards.forEach(function(aCard) {
+      cards.push(aCard);
+    });
+  }
+  function grabCardsWithRank(rank) {
+    var result = [];
+    for (var i = 0; i < this.cards.length; i++) {
+      var card = this.cards[i];
+      if (card.value === rank) {
+        result.push(card);
+        this.cards.splice(i, 1);
+        i--;
+      }
+    }
+    return result;
   }
 }
 
@@ -58,7 +78,8 @@ function playerHTML(player) {
   });
   var uniqueValues = Object.keys(playerHasSuit);
   uniqueValues.forEach(function(value) {
-    playerHTML += '<button>Ask for ' + value + '</button>';
+    // TODO: figure out target player
+    playerHTML += '<button onclick="ask(' + player.number + ', null, \'' + value + '\')">Ask for ' + value + '</button>';
   });
 
   playerHTML += '<hr />\n';

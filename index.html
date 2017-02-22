@@ -24,6 +24,26 @@ window.onload = function() {
   displayGameState();
 };
 
+function ask(askingPlayerNumber, askedPlayerNumber, rank) {
+  var askingPlayerIndex = parseInt(askingPlayerNumber) - 1;
+  // Assumes two players
+  var askedPlayerIndex = askingPlayerIndex === 0 ? 1 : 0;
+
+  var askingPlayer = players[askingPlayerIndex];
+  var askedPlayer = players[askedPlayerIndex];
+  var cardsFromAskedPlayer = askedPlayer.grabCardsWithRank(rank);
+  if (cardsFromAskedPlayer.length > 0) {
+    askingPlayer.giveCards(cardsFromAskedPlayer);
+  }
+  else {
+    console.log('Go Fish!');
+    var card = deck.draw();
+    askingPlayer.giveCard(card);
+    // TODO: determine next turn
+  }
+  displayGameState();
+}
+
 // Here lies debugging functions
 function pocDraw() {
   console.log(deck.draw());
