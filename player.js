@@ -15,19 +15,33 @@ function createPlayers(numberOfPlayers) {
 
 function Player(number) {
   return {
+    cardLookupTable: createCardLookupTable(),
     cards: [],
     giveCard: giveCard,
     giveCards: giveCards,
     grabCardsWithRank: grabCardsWithRank,
     number: number,
   }
+  function createCardLookupTable() {
+    var result = {};
+    card_ranks.forEach(function(rank) {
+      var suits = {};
+      card_suits.forEach(function(suit) {
+        suits[suit] = false;
+      });
+      result[rank] = suits;
+    });
+    return result;
+  }
   function giveCard(aCard) {
     this.cards.push(aCard);
+    this.cardLookupTable[aCard.value][aCard.suit] = true;
   }
   function giveCards(manyCards) {
     var cards = this.cards;
     manyCards.forEach(function(aCard) {
       cards.push(aCard);
+      this.cardLookupTable[aCard.value][aCard.suit] = true;
     });
   }
   function grabCardsWithRank(rank) {
@@ -38,6 +52,7 @@ function Player(number) {
         result.push(card);
         this.cards.splice(i, 1);
         i--;
+        this.cardLookupTable[card.value][card.suit] = false;
       }
     }
     return result;
@@ -68,6 +83,10 @@ function playerHTML(player) {
   });
   playerHTML += '</p>\n';
   playerHTML += '</div>\n';
+
+  // TODO: print out cards sorted by rank
+  console.log(player.cardLookupTable);
+  // &spades;&hearts;&diams;&clubs;
 
   playerHTML += '<div>Ask player: ';
   playerHTML += '<form><input type="text"></input></form>';

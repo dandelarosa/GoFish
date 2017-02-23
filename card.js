@@ -21,6 +21,8 @@ var card_values = [
   'A',
 ];
 
+var card_ranks = card_values;
+
 function Card(suit, value) {
   this.suit = suit;
   this.value = value;
