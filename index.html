@@ -25,6 +25,11 @@ window.onload = function() {
 };
 
 function ask(askingPlayerNumber, askedPlayerNumber, rank) {
+  if (askingPlayerNumber !== currentPlayer) {
+    alert('It\'s not your turn!');
+    return;
+  }
+
   var askingPlayerIndex = parseInt(askingPlayerNumber) - 1;
   // Assumes two players
   var askedPlayerIndex = askingPlayerIndex === 0 ? 1 : 0;
@@ -34,14 +39,24 @@ function ask(askingPlayerNumber, askedPlayerNumber, rank) {
   var cardsFromAskedPlayer = askedPlayer.grabCardsWithRank(rank);
   if (cardsFromAskedPlayer.length > 0) {
     askingPlayer.giveCards(cardsFromAskedPlayer);
+    goToNextPlayer();
   }
   else {
     console.log('Go Fish!');
     var card = deck.draw();
     askingPlayer.giveCard(card);
-    // TODO: determine next turn
+    if (card.value !== rank) {
+      goToNextPlayer();
+    }
   }
   displayGameState();
+}
+
+function goToNextPlayer() {
+  currentPlayer++;
+  if (currentPlayer > players.length) {
+    currentPlayer = 1;
+  }
 }
 
 // Here lies debugging functions
