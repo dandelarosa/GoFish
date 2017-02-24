@@ -23,11 +23,12 @@ var card_values = [
 
 var card_ranks = card_values;
 
-function Card(suit, value) {
+function Card(suit, rank) {
   this.suit = suit;
-  this.value = value;
+  this.value = rank;
+  this.rank = rank;
   this.toString = function() {
-    return this.value + ' of ' + this.suit;
+    return this.rank + ' of ' + this.suit;
   };
 }
 
