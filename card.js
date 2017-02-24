@@ -5,6 +5,13 @@ var card_suits = [
   'Clubs',
 ];
 
+var card_suit_symbols = {
+  'Spades': '&spades;',
+  'Hearts': '&hearts;',
+  'Diamonds': '&diams;',
+  'Clubs': '&clubs;',
+}
+
 var card_values = [
   '2',
   '3',

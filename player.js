@@ -77,16 +77,22 @@ function playerHTML(player) {
   var playerHTML = '';
   playerHTML += '<div id="player' + player.number + '">\n';
   playerHTML += '<p>Player ' + player.number + '</p>\n';
-  playerHTML += '<p>Cards: '
-  player.cards.forEach(function(card) {
-    playerHTML += card + ', ';
-  });
-  playerHTML += '</p>\n';
   playerHTML += '</div>\n';
 
-  // TODO: print out cards sorted by rank
-  console.log(player.cardLookupTable);
-  // &spades;&hearts;&diams;&clubs;
+  playerHTML += '<p>Cards by Rank</p>';
+  card_ranks.forEach(function(rank) {
+    var hasRank = false;
+    var rankString =  rank + ': ';
+    card_suits.forEach(function(suit) {
+      if (player.cardLookupTable[rank][suit]) {
+        hasRank = true;
+        rankString += card_suit_symbols[suit];
+      }
+    });
+    if (hasRank) {
+      playerHTML += '<p>' + rankString + '</p>';
+    }
+  });
 
   playerHTML += '<div>Ask player: ';
   playerHTML += '<form><input type="text"></input></form>';
