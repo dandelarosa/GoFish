@@ -97,15 +97,20 @@ function playerHTML(player) {
 
   playerHTML += '<div>Ask player: ';
   playerHTML += '<form><input type="text"></input></form>';
-  var playerHasSuit = {};
-  player.cards.forEach(function(card) {
-    var value = card.value;
-    playerHasSuit[value] = 'present';
+
+  var playerRanks = [];
+  card_ranks.forEach(function(rank) {
+    for (var i = 0; i < card_suits.length; i++) {
+      suit = card_suits[i];
+      if (player.cardLookupTable[rank][suit]) {
+        playerRanks.push(rank);
+        break;
+      }
+    }
   });
-  var uniqueValues = Object.keys(playerHasSuit);
-  uniqueValues.forEach(function(value) {
+  playerRanks.forEach(function(rank) {
     // TODO: figure out target player
-    playerHTML += '<button onclick="ask(' + player.number + ', null, \'' + value + '\')">Ask for ' + value + '</button>';
+    playerHTML += '<button onclick="ask(' + player.number + ', null, \'' + rank + '\')">Ask for ' + rank + '</button>';
   });
 
   playerHTML += '<hr />\n';
