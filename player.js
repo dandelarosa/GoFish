@@ -16,7 +16,6 @@ function createPlayers(numberOfPlayers) {
 function Player(number) {
   return {
     cardLookupTable: createCardLookupTable(),
-    cards: [],
     giveCard: giveCard,
     giveCards: giveCards,
     grabCardsWithRank: grabCardsWithRank,
@@ -34,26 +33,22 @@ function Player(number) {
     return result;
   }
   function giveCard(aCard) {
-    this.cards.push(aCard);
     this.cardLookupTable[aCard.value][aCard.suit] = true;
   }
   function giveCards(manyCards) {
-    var cards = this.cards;
     var cardLookupTable = this.cardLookupTable;
     manyCards.forEach(function(aCard) {
-      cards.push(aCard);
       cardLookupTable[aCard.value][aCard.suit] = true;
     });
   }
   function grabCardsWithRank(rank) {
     var result = [];
-    for (var i = 0; i < this.cards.length; i++) {
-      var card = this.cards[i];
-      if (card.value === rank) {
-        result.push(card);
-        this.cards.splice(i, 1);
-        i--;
-        this.cardLookupTable[card.value][card.suit] = false;
+    var rankArray = this.cardLookupTable[rank];
+    for (var i = 0; i < card_suits.length; i++) {
+      var suit = card_suits[i];
+      if (rankArray[suit] === true) {
+        result.push(new Card(suit, rank));
+        rankArray[suit] = false;
       }
     }
     return result;
