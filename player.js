@@ -39,9 +39,10 @@ function Player(number) {
   }
   function giveCards(manyCards) {
     var cards = this.cards;
+    var cardLookupTable = this.cardLookupTable;
     manyCards.forEach(function(aCard) {
       cards.push(aCard);
-      this.cardLookupTable[aCard.value][aCard.suit] = true;
+      cardLookupTable[aCard.value][aCard.suit] = true;
     });
   }
   function grabCardsWithRank(rank) {
