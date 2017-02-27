@@ -50,6 +50,21 @@ function ask(askingPlayerNumber, askedPlayerNumber, rank) {
     }
   }
   displayGameState();
+
+  if (deck.getNumberOfCards() == 0) {
+    console.log('Game Over!');
+    var player1Books = players[0].getNumberOfBooks();
+    var player2Books = players[1].getNumberOfBooks();
+    if (player1Books > player2Books) {
+      alert('Player 1 Wins!');
+    }
+    else if (player2Books > player1Books) {
+      alert('Player 2 Wins!');
+    }
+    else {
+      alert('Tie!');
+    }
+  }
 }
 
 function goToNextPlayer() {

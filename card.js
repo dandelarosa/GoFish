@@ -43,6 +43,7 @@ function Deck() {
   return {
     cards: createShuffledDeck(),
     draw: draw,
+    getNumberOfCards: getNumberOfCards,
     toString: toString,
   };
 
@@ -69,6 +70,10 @@ function Deck() {
     var card = this.cards[0];
     this.cards.splice(0, 1);
     return card;
+  }
+
+  function getNumberOfCards() {
+    return this.cards.length;
   }
 
   function toString() {

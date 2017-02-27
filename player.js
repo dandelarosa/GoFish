@@ -16,6 +16,7 @@ function createPlayers(numberOfPlayers) {
 function Player(number) {
   return {
     cardLookupTable: createCardLookupTable(),
+    getNumberOfBooks: getNumberOfBooks,
     giveCard: giveCard,
     giveCards: giveCards,
     grabCardsWithRank: grabCardsWithRank,
@@ -31,6 +32,22 @@ function Player(number) {
       result[rank] = suits;
     });
     return result;
+  }
+  function getNumberOfBooks() {
+    var numberOfBooks = 0;
+    var cardLookupTable = this.cardLookupTable;
+    card_ranks.forEach(function(rank) {
+      var numberOfCardsInRank = 0;
+      card_suits.forEach(function(suit) {
+        if (cardLookupTable[rank][suit] === true) {
+          numberOfCardsInRank++;
+        }
+      });
+      if (numberOfCardsInRank === card_suits.length) {
+        numberOfBooks++;
+      }
+    });
+    return numberOfBooks;
   }
   function giveCard(aCard) {
     this.cardLookupTable[aCard.value][aCard.suit] = true;
